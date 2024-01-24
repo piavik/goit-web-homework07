@@ -197,6 +197,7 @@ def select_12(group_id, subject_id, *args):
         .join(Group)
         .filter(Group.id == group_id, Subject.id == subject_id)
         .group_by(Group.id, Student.id, Subject.id, Score.score)
+        .order_by(Student.id)
     )
     return result
 
@@ -237,7 +238,7 @@ def get_number_of_functions(startswith: str) -> int:
 def main():
     params = generate_random()
     select_tasks = get_number_of_functions("select_")
-    for i in range(1, select_tasks+1):
+    for i in range(11, select_tasks+1):
         # calling functions in a loop
         function_name = globals()['select_' + str(i)]
         result = function_name(*params[i])
