@@ -10,7 +10,7 @@ NUMBER_OF_STUDENTS = 50
 NUMBER_OF_GROUPS = 3
 NUMBER_OF_SUBJECTS = 8
 NUMBER_OF_LECTORS = 5
-NUMBER_OF_SCORES = 20
+NUMBER_OF_SCORES = 200
 
 faker = Faker()
 
@@ -67,7 +67,7 @@ def seed_scores(session, number):
     subject_ids = session.query(Subject.id).all()
 
     study_end = datetime.now().date()
-    offset = 0 if study_end.month <9 else 1
+    offset = 0 if study_end.month > 9 else 1
     study_start = datetime(datetime.now().year-offset, 9, 1).date()
 
     for _ in range(number):
