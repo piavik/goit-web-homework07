@@ -12,7 +12,7 @@ def select_1(number, *args):
             func.round(func.avg(Score.score), 2).label("Average Score")
         )
         .select_from(Student)
-        .join(Score) #, Student.id == Score.student_id)
+        .join(Score) #, Student.id == Score.student_id)     # not needed as relatoins are described in the model ?
         .group_by(Student.id)
         .order_by(desc("Average Score"))
         .limit(number)
@@ -29,8 +29,8 @@ def select_2(subject_id, *args):
             func.round(func.avg(Score.score), 2).label("Average Score")
         )
         .select_from(Score)
-        .join(Student) #, Score.student_id == Student.id) # not needed as relatoins are described in the model ?
-        .join(Subject) #, Score.subject_id == Subject.id)
+        .join(Student)
+        .join(Subject) 
         .filter(Subject.id == subject_id)
         .group_by(Subject.id, Student.id)
         .order_by(desc("Average Score"))
@@ -141,6 +141,7 @@ def select_9(student_id, *args):
         .join(Student)
         .join(Subject)
         .filter(Student.id == student_id)
+        .group_by(Student.id, Subject.id)
         .all()
     )
     return result
